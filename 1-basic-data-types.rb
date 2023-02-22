@@ -99,6 +99,13 @@ name = "Angela"
 "hello world".delete("l") # "heo word"
 
 # Convertendo outros objetos em strings
-puts 5.to_s # "5"
-puts nil.to_s # ""
-puts :symbol.to_s # "symbol"
+5.to_s # "5"
+nil.to_s # "" (nil = nothing)
+:symbol.to_s # "symbol"
+
+# SYMBOLS
+# Sempre que strings são usadas, Ruby a armazena na memória, mesmo que uma string com o mesmo valor já exista. Symbols, por outro lado, são armazenados na memória apenas uma vez, tornado-os mais rápidos em algumas situações.
+"string" == "string" # true: valores iguais
+# object_id retorna um integer identificador de um objeto. E tudo em Ruby é um objeto
+"string".object_id == "string".object_id # false: valores iguais, mas ids diferentes
+:symbol.object_id == :symbol.object_id # true

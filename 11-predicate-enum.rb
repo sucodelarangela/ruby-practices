@@ -56,5 +56,71 @@ end
 result # false
 
 # Exemplo com `any?`
-puts numbers.any? { |number| number > 500 } # true
-puts numbers.any? { |number| number < 20 } # false
+numbers.any? { |number| number > 500 } # true
+numbers.any? { |number| number < 20 } # false
+
+# ALL?: Só retorna `true` se TODOS os elementos no array ou hash respeitarem a condição no bloco.
+# Exemplo usando `each`
+fruits = ['apple', 'banana', 'strawberry', 'pineapple']
+matches = []
+result = false
+
+fruits.each do |fruit|
+  if fruit.length > 3
+    matches.push(fruit)
+  end
+  
+  result = fruits.length == matches.length
+end
+
+result # true
+
+fruits = ["apple", "banana", "strawberry", "pineapple"]
+matches = []
+result = false
+
+fruits.each do |fruit|
+  if fruit.length > 6
+    matches.push(fruit)
+  end
+
+  result = fruits.length == matches.length
+end
+
+result # false
+
+# Exemplo usando `all?`
+fruits.all? { |fruit| fruit.length > 3 } # true
+fruits.all? { |fruit| fruit.length > 6 } # false
+
+# NONE?: é o contrário de `all?`, retornando `true` apenas se a condição do bloco não encontrar NENHUM elemento do array ou hash.
+# Exemplo com `each`:
+matches = []
+result = false
+
+fruits.each do |fruit|
+  if fruit.length > 10
+    matches.push(fruit)
+  end
+
+  result = matches.length == 0
+end
+
+result # true
+
+matches = []
+result = false
+
+fruits.each do |fruit|
+  if fruit.length > 6
+    matches.push(fruit)
+  end
+
+  result = matches.length == 0
+end
+
+result # false
+
+# Exemplo usando `none?`
+puts fruits.none? { |fruit| fruit.length > 10 } # true
+puts fruits.none? { |fruit| fruit.length > 6 } # false

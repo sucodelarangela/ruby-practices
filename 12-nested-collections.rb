@@ -112,3 +112,38 @@ test_scores.all? do |scores|
   scores.any? { |score| score > 80 }
 end
 # O exemplo acima retorna `true` pois validamos que todos os nested arrays tem algum número acima de 80
+
+# NESTED HASHES
+vehicles = {
+  alice: {year: 2019, make: "Toyota", model: "Corolla"},
+  blake: {year: 2020, make: "Volkswagen", model: "Beetle"},
+  caleb: {year: 2020, make: "Honda", model: "Accord"},
+}
+
+# Acessando dados: basta chamar `hash[:x][:y]`, onde `:x` é a chave da hash e `:y` é a chave do hash aninhado
+vehicles[:alice][:year] # 2019
+vehicles[:blake][:make] # "Volkswagen"
+vehicles[:caleb][:model] # "Accord"
+
+# Similar a arrays, tentar acessar uma chave inexistente retorna o erro `NoMethodError`, então é recomendado usar o método `nil`
+vehicles[:zoe][:year] # NoMethodError
+vehicles.dig(:zoe, :year) # nil
+vehicles[:alice][:color] # nil
+vehicles.dig(:alice, :color) # nil
+
+# Adicionando e removendo dados
+# Adicionando um novo elemento
+vehicles[:dave] = {year: 2021, make: "Ford", model: "Escape"}
+vehicles # {:alice=>{:year=>2019, :make=>"Toyota", :model=>"Corolla"}, :blake=>{:year=>2020, :make=>"Volkswagen", :model=>"Beetle"}, :caleb=>{:year=>2020, :make=>"Honda", :model=>"Accord"}, :dave=>{:year=>2021, :make=>"Ford", :model=>"Escape"}}
+
+# Adicionando um novo elemento à um hash aninhado:
+vehicles[:dave][:color] = "red"
+vehicles # {:alice=>{:year=>2019, :make=>"Toyota", :model=>"Corolla"}, :blake=>{:year=>2020, :make=>"Volkswagen", :model=>"Beetle"}, :caleb=>{:year=>2020, :make=>"Honda", :model=>"Accord"}, :dave=>{:year=>2021, :make=>"Ford", :model=>"Escape", :color=>"red"}}
+
+# Deletando dados
+vehicles.delete(:blake)
+vehicles # {:alice=>{:year=>2019, :make=>"Toyota", :model=>"Corolla"}, :caleb=>{:year=>2020, :make=>"Honda", :model=>"Accord"}, :dave=>{:year=>2021, :make=>"Ford", :model=>"Escape", :color=>"red"}}
+
+# Deletando um par chave/valor dentro de um hash aninhado
+vehicles[:dave].delete[:color]
+vehicles # {:alice=>{:year=>2019, :make=>"Toyota", :model=>"Corolla"}, :caleb=>{:year=>2020, :make=>"Honda", :model=>"Accord"}, :dave=>{:year=>2021, :make=>"Ford", :model=>"Escape"}}

@@ -147,3 +147,17 @@ vehicles # {:alice=>{:year=>2019, :make=>"Toyota", :model=>"Corolla"}, :caleb=>{
 # Deletando um par chave/valor dentro de um hash aninhado
 vehicles[:dave].delete[:color]
 vehicles # {:alice=>{:year=>2019, :make=>"Toyota", :model=>"Corolla"}, :caleb=>{:year=>2020, :make=>"Honda", :model=>"Accord"}, :dave=>{:year=>2021, :make=>"Ford", :model=>"Escape"}}
+
+# MÉTODOS DE NESTED COLLECTIONS
+# SELECT: seleciona a hash que passa pelo filtro dentro do bloco de escopo
+vehicles.select { |name, data| data[:year] >= 2020 }
+# Retorna {:caleb=>{:year=>2020, :make=>"Honda", :model=>"Accord"}, :dave=>{:year=>2021, :make=>"Ford", :model=>"Escape"}}
+
+# COLLECT: similar ao `map`, retorna o VALOR de cada iteração, e não o elemento aninhado inteiro
+vehicles.collect { |name, data| name if data [:year] >= 2020 } # [nil, :caleb, :dave]
+
+# No caso acima, recebemos um `nil`, o que pode gerar problemas futuros. Para isso, há o método `compact` que retorna o array ou hash sem os valores `nil`:
+vehicles.collect { |name, data| name if data[:year] >= 2020 }.compact # [:caleb, :dave]
+
+# FILTER_MAP: combina a ação acima onde combinamos `collect` e `compact`
+vehicles.filter_map { |name, data| name if data[:year] >= 2020 } # [:caleb, :dave]

@@ -48,4 +48,4 @@ These exercises are designed to complement the [Ruby Basic lessons](https://www.
 
 #### 12.Nested Collections
 
-- [ ] Nested Collection Exercises
+- [x] Nested Collection Exercises
